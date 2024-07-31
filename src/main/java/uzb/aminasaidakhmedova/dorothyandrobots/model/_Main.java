@@ -2,6 +2,7 @@ package uzb.aminasaidakhmedova.dorothyandrobots.model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class _Main {
@@ -9,20 +10,26 @@ public class _Main {
         try (FileReader fr = new FileReader("text.txt");
              BufferedReader br = new BufferedReader(fr)) {
             String line = br.readLine();
-            int errorWordCounter = 0;
+            int errorWordCount = 0;
 
             while (line != null) {
                 String[] words = line.split("\\s+");
 
                 for (String word : words) {
                     if (containsNonsenseChars(word)) {
-                        errorWordCounter++;
+                        errorWordCount++;
+                        if (errorWordCount == 1) {
+                            createFile(word);
+                        } else if (errorWordCount == 2) {
+                            createFile(word);
+                        }
                     }
-                    if(errorWordCounter == 1) {
-                        //code to create and name a file with this error word
+                    if (errorWordCount == 2) {
+                        break;
                     }
                 }
             }
+            System.out.println("Files 1 and 2 were created.");
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -30,6 +37,13 @@ public class _Main {
 
     private static boolean containsNonsenseChars(String word) {
         return word.matches(".*[^a-zA-Z].*]");
+    }
+
+    private static void createFile(String fileName) {
+        try (FileWriter fw = new FileWriter(fileName)) {
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
 
