@@ -7,7 +7,11 @@ import java.io.IOException;
 
 public class _Main {
     public static void main(String[] args) {
-        String inputFile = "src/main/resources/text.txt";
+        String resourcesRode = "src/main/resources/";
+        String inputFile = resourcesRode + "text.txt";
+        String firstErrorFile = null;
+        String secondErrorFile = null;
+
         try (FileReader fr = new FileReader(inputFile);
              BufferedReader br = new BufferedReader(fr)) {
             String line = br.readLine();
@@ -20,9 +24,12 @@ public class _Main {
                     if (containsNonsenseChars(word)) {
                         errorWordCount++;
                         if (errorWordCount == 1) {
-                            createFile(word);
+                            firstErrorFile = resourcesRode + deleteErrFromWord(word) + ".txt";
+                            createFile(firstErrorFile);
                         } else if (errorWordCount == 2) {
-                            createFile(word);
+                            secondErrorFile = resourcesRode + deleteErrFromWord(word) + ".txt";
+                            createFile(secondErrorFile);
+                            break;
                         }
                     }
                     if (errorWordCount == 2) {
@@ -34,6 +41,8 @@ public class _Main {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+
+        createFile("punctuation");
     }
 
     private static boolean containsNonsenseChars(String word) {
@@ -47,7 +56,7 @@ public class _Main {
         }
     }
 
-    private static String deleteErrorWord(String word) {
+    private static String deleteErrFromWord(String word) {
         return word.replaceAll(".*.[^a-zA-Z]*", "");
     }
 }
