@@ -7,7 +7,8 @@ import java.io.IOException;
 
 public class _Main {
     public static void main(String[] args) {
-        try (FileReader fr = new FileReader("text.txt");
+        String inputFile = "src/main/resources/text.txt";
+        try (FileReader fr = new FileReader(inputFile);
              BufferedReader br = new BufferedReader(fr)) {
             String line = br.readLine();
             int errorWordCount = 0;
@@ -44,6 +45,10 @@ public class _Main {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private static String deleteErrorWord(String word) {
+        return word.replaceAll(".*.[^a-zA-Z]*", "");
     }
 }
 
