@@ -9,8 +9,19 @@ public class _Main {
         try (FileReader fr = new FileReader("text.txt");
              BufferedReader br = new BufferedReader(fr)) {
             String line = br.readLine();
+            int errorWordCounter = 0;
+
             while (line != null) {
                 String[] words = line.split("\\s+");
+
+                for (String word : words) {
+                    if (containsNonsenseChars(word)) {
+                        errorWordCounter++;
+                    }
+                    if(errorWordCounter == 1) {
+                        //code to create and name a file with this error word
+                    }
+                }
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
