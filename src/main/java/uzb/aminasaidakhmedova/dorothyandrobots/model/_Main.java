@@ -8,7 +8,10 @@ public class _Main {
     public static void main(String[] args) {
         try (FileReader fr = new FileReader("text.txt");
              BufferedReader br = new BufferedReader(fr)) {
-
+            String line = br.readLine();
+            while (line != null) {
+                String[] words = line.split("\\s+");
+            }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
