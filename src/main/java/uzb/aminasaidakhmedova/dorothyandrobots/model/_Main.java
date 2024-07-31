@@ -1,8 +1,17 @@
 package uzb.aminasaidakhmedova.dorothyandrobots.model;
 
-public class _Main {
-    public static void main (String[] args) {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
+public class _Main {
+    public static void main(String[] args) {
+        try (FileReader fr = new FileReader("text.txt");
+             BufferedReader br = new BufferedReader(fr)) {
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private static boolean containsNonsenseChars(String word) {
