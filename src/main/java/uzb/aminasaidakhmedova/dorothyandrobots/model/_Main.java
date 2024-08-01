@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class _Main {
         String secondErrorWord = null;
         Set<String> evenVowelsWords = new HashSet<>();
         Set<String> oddVowelsWords = new HashSet<>();
+        Map<Character, Integer> numberingPunctuation = new HashMap<>();
 
         try (FileReader fr = new FileReader(inputFile);
              BufferedReader br = new BufferedReader(fr)) {
@@ -36,6 +38,7 @@ public class _Main {
                             secondErrorWord = word;
                         }
                     } else {
+                        countPunctuation(word, numberingPunctuation);
                         if (countVowels(word) % 2 == 0){
                             evenVowelsWords.add(word);
                         } else {
