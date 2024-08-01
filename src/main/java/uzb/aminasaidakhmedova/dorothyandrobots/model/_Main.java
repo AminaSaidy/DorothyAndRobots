@@ -31,18 +31,18 @@ public class _Main {
                     if (containsNonsenseChars(word)) {
                         errorWordCount++;
                         if (errorWordCount == 1) {
-//                            firstErrorFile = resourcesRode + deleteErrFromWord(word) + ".txt";
                             firstErrorWord = word;
                         } else if (errorWordCount == 2) {
-//                            secondErrorFile = resourcesRode + deleteErrFromWord(word) + ".txt";
                             secondErrorWord = word;
                         }
                     } else {
                         countPunctuation(word, numberingPunctuation);
-                        if (countVowels(word) % 2 == 0) {
-                            evenVowelsWords.add(word);
-                        } else {
-                            oddVowelsWords.add(word);
+                        if(!word.equals(firstErrorWord) && !word.equals(secondErrorWord)) {
+                            if (countVowels(word) % 2 == 0) {
+                                evenVowelsWords.add(word);
+                            } else {
+                                oddVowelsWords.add(word);
+                            }
                         }
                     }
                 }
