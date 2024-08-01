@@ -38,9 +38,10 @@ public class _Main {
                     } else {
                         countPunctuation(word, numberingPunctuation);
                         if(!word.equals(firstErrorWord) && !word.equals(secondErrorWord)) {
-                            if (countVowels(word) % 2 == 0) {
+                            if (countVowels(word) % 2 == 0 && !evenVowelsWords.contains(word)) {
                                 evenVowelsWords.add(word);
-                            } else {
+                            }
+                            if(countVowels(word) % 2 == 1 && !oddVowelsWords.contains(word)) {
                                 oddVowelsWords.add(word);
                             }
                         }
