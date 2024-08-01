@@ -39,7 +39,7 @@ public class _Main {
                         }
                     } else {
                         countPunctuation(word, numberingPunctuation);
-                        if (countVowels(word) % 2 == 0){
+                        if (countVowels(word) % 2 == 0) {
                             evenVowelsWords.add(word);
                         } else {
                             oddVowelsWords.add(word);
@@ -50,9 +50,9 @@ public class _Main {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        createAndWriteToFile (resourcesRode + firstErrorWord + ".txt", evenVowelsWords.toString());
+        createAndWriteToFile(resourcesRode + firstErrorWord + ".txt", evenVowelsWords.toString());
         createAndWriteToFile(resourcesRode + secondErrorWord + ".txt", oddVowelsWords.toString());
-        createAndWriteToFile("punctuation");
+        createWriteToPunctFile(resourcesRode + "punctuation.txt", numberingPunctuation);
     }
 
     public static boolean containsNonsenseChars(String word) {
@@ -74,21 +74,30 @@ public class _Main {
     public static int countVowels(String word) {
         int count = 0;
         for (char character : word.toCharArray()) {
-            if("AEIOUaeiou".indexOf(character) != -1) {
+            if ("AEIOUaeiou".indexOf(character) != -1) {
                 count++;
             }
         }
         return count;
     }
 
-    public static void countPunctuation (String word, Map<Character, Integer> signsNumbered) {
+    public static void countPunctuation(String word, Map<Character, Integer> signsNumbered) {
         for (char symbol : word.toCharArray()) {
-            if(",.?!:;-".indexOf(symbol) != -1) {
+            if (",.?!:;-".indexOf(symbol) != -1) {
                 signsNumbered.put(symbol, signsNumbered.getOrDefault(symbol, 0) + 1);
             }
         }
     }
 
+    public static void createWriteToPunctFile(String fileName, Map<Character, Integer> countedPunctuation) {
+        try (FileWriter fw = new FileWriter(fileName)) {
+            for (Map.Entry<Character, Integer> element : countedPunctuation.entrySet()) {
+                fw.write(element.getKey() + " " + element.getValue());
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
 }
 
