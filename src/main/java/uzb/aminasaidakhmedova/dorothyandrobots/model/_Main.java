@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class _Main {
@@ -47,7 +48,7 @@ public class _Main {
             System.err.println(e.getMessage());
         }
         createAndWriteToFile (resourcesRode + firstErrorWord + ".txt", evenVowelsWords.toString());
-        createAndWritetoFIle(resourcesRode + secondErrorWord + ".txt", oddVowelsWords.toString());
+        createAndWriteToFile(resourcesRode + secondErrorWord + ".txt", oddVowelsWords.toString());
         createAndWriteToFile("punctuation");
     }
 
@@ -75,6 +76,14 @@ public class _Main {
             }
         }
         return count;
+    }
+
+    public static void countPunctuation (String word, Map<Character, Integer> signsNumbered) {
+        for (char symbol : word.toCharArray()) {
+            if(",.?!:;-".indexOf(symbol) != -1) {
+                signsNumbered.put(symbol, signsNumbered.getOrDefault(symbol, 0) + 1);
+            }
+        }
     }
 
 
