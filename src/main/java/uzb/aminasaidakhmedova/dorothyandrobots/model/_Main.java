@@ -45,19 +45,29 @@ public class _Main {
         createFile("punctuation");
     }
 
-    private static boolean containsNonsenseChars(String word) {
+    public static boolean containsNonsenseChars(String word) {
         return word.matches(".*[^a-zA-Z].*]");
     }
 
-    private static void createFile(String fileName) {
+    public static void createFile(String fileName) {
         try (FileWriter fw = new FileWriter(fileName)) {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    private static String deleteErrFromWord(String word) {
-        return word.replaceAll(".*.[^a-zA-Z]*", "");
+    public static String deleteErrFromWord(String word) {
+        return word.replaceAll(".*[^a-zA-Z].*", "");
+    }
+
+    public static int countVowels(String word) {
+        int count = 0;
+        for (char character : word.toCharArray()) {
+            if("AEIOUaeiou".indexOf(character) != -1) {
+                count++;
+            }
+        }
+        return count;
     }
 }
 
