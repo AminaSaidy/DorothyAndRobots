@@ -21,10 +21,10 @@ public class _Main {
 
         try (FileReader fr = new FileReader(inputFile);
              BufferedReader br = new BufferedReader(fr)) {
-            String line = br.readLine();
+            String line;
             int errorWordCount = 0;
 
-            while (line != null) {
+            while ((line = br.readLine()) != null) {
                 String[] words = line.split("\\s+");
 
                 for (String word : words) {
@@ -93,7 +93,7 @@ public class _Main {
     public static void createWriteToPunctFile(String fileName, Map<Character, Integer> countedPunctuation) {
         try (FileWriter fw = new FileWriter(fileName)) {
             for (Map.Entry<Character, Integer> element : countedPunctuation.entrySet()) {
-                fw.write(element.getKey() + " " + element.getValue());
+                fw.write(element.getKey() + " " + element.getValue() + "\n");
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
