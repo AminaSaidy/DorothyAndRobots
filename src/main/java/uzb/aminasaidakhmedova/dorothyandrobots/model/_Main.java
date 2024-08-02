@@ -57,7 +57,7 @@ public class _Main {
     }
 
     public static boolean containsNonsenseChars(String word) {
-        return word.matches(".*[^a-zA-Z].*]");
+        return word.matches(".*[^a-zA-Z\\p{Punct}].*");
     }
 
     public static void createAndWriteToFile(String fileName, String content) {
