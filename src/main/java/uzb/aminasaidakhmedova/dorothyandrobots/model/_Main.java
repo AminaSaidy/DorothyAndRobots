@@ -31,18 +31,19 @@ public class _Main {
                     if (containsNonsenseChars(word)) {
                         errorWordCount++;
                         if (errorWordCount == 1) {
-                            firstErrorWord = word;
+                            firstErrorWord = deleteErrFromWord(word);
                         } else if (errorWordCount == 2) {
-                            secondErrorWord = word;
+                            secondErrorWord = deleteErrFromWord(word);
                         }
                     } else {
                         countPunctuation(word, numberingPunctuation);
                         if(!word.equals(firstErrorWord) && !word.equals(secondErrorWord)) {
-                            if (countVowels(word) % 2 == 0 && !evenVowelsWords.contains(word)) {
-                                evenVowelsWords.add(word);
+                            String cleanWord = deleteErrFromWord(word);
+                            if (countVowels(cleanWord) % 2 == 0 && !evenVowelsWords.contains(cleanWord)) {
+                                evenVowelsWords.add(cleanWord);
                             }
-                            if(countVowels(word) % 2 == 1 && !oddVowelsWords.contains(word)) {
-                                oddVowelsWords.add(word);
+                            if(countVowels(cleanWord) % 2 == 1 && !oddVowelsWords.contains(cleanWord)) {
+                                oddVowelsWords.add(cleanWord);
                             }
                         }
                     }
@@ -51,8 +52,8 @@ public class _Main {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        createAndWriteToFile(resourcesRode + firstErrorWord + ".txt", evenVowelsWords.toString());
-        createAndWriteToFile(resourcesRode + secondErrorWord + ".txt", oddVowelsWords.toString());
+        createAndWriteToFile(resourcesRode + firstErrorWord + ".txt", evenVowelsWords);
+        createAndWriteToFile(resourcesRode + secondErrorWord + ".txt", oddVowelsWords);
         createWriteToPunctFile(resourcesRode + "punctuation.txt", numberingPunctuation);
     }
 
@@ -60,16 +61,16 @@ public class _Main {
         return word.matches(".*[^a-zA-Z\\p{Punct}].*");
     }
 
-    public static void createAndWriteToFile(String fileName, String content) {
+    public static void createAndWriteToFile(String fileName, Set<String> content) {
         try (FileWriter fw = new FileWriter(fileName)) {
-            fw.write(content);
+            fw.write(String.join(" ", content));
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
     public static String deleteErrFromWord(String word) {
-        return word.replaceAll(".*[^a-zA-Z].*", "");
+        return word.replaceAll("[^a-zA-Z]", "");
     }
 
     public static int countVowels(String word) {
