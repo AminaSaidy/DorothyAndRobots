@@ -78,9 +78,9 @@ public class _Main {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        createAndWriteToFile(resourcesRode + firstErrorWord + ".txt", evenVowelsWords);
-        createAndWriteToFile(resourcesRode + secondErrorWord + ".txt", oddVowelsWords);
-        createWriteToPunctFile(resourcesRode + "punctuation.txt", numberingPunctuation);
+        createAndWriteToFile(dateDir + firstErrorWord + ".txt", evenVowelsWords);
+        createAndWriteToFile(dateDir + secondErrorWord + ".txt", oddVowelsWords);
+        createWriteToPunctFile(dateDir + "punctuation.txt", numberingPunctuation);
     }
 
     public static boolean containsNonsenseChars(String word) {
