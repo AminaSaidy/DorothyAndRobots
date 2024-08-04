@@ -10,6 +10,8 @@ import java.util.Set;
 
 public class _Main {
     public static void main(String[] args) {
+        String dataDir = "data/";
+        String dateDir = dataDir + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyy")) + "/";
         String resourcesRode = "src/main/resources/";
         String inputFile = resourcesRode + "text.txt";
         String firstErrorWord = null;
@@ -18,7 +20,6 @@ public class _Main {
         Set<String> oddVowelsWords = new HashSet<>();
         Map<Character, Integer> numberingPunctuation = new HashMap<>();
 
-        String dataDir = "data/";
         try {
             File dataDirectory = new File(dataDir);
             if (!dataDirectory.exists()) {
@@ -28,7 +29,6 @@ public class _Main {
             System.err.println(e.getMessage());
         }
 
-        String dateDir = dataDir + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyy")) + "/";
         try {
             File dateDirectory = new File(dateDir);
             if (!dateDirectory.exists()) {
@@ -49,10 +49,8 @@ public class _Main {
              BufferedReader br = new BufferedReader(fr)) {
             String line;
             int errorWordCount = 0;
-
             while ((line = br.readLine()) != null) {
                 String[] words = line.split("\\s+");
-
                 for (String word : words) {
                     if (containsNonsenseChars(word)) {
                         errorWordCount++;
