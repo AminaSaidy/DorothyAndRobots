@@ -28,7 +28,15 @@ public class _Main {
             System.err.println(e.getMessage());
         }
 
-        String dateDir = dataDir + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-mm-yyy"));
+        String dateDir = dataDir + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-mm-yyy")) + "/";
+        try{
+            File dateDirectory = new File(dateDir);
+            if(!dateDirectory.exists()) {
+                dateDirectory.mkdir();
+            }
+        }catch(Exception e) {
+            System.err.println(e.getMessage());
+        }
 
         try (FileReader fr = new FileReader(inputFile);
              BufferedReader br = new BufferedReader(fr)) {
