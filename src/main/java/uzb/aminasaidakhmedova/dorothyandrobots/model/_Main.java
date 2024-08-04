@@ -1,9 +1,8 @@
 package uzb.aminasaidakhmedova.dorothyandrobots.model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,6 +17,18 @@ public class _Main {
         Set<String> evenVowelsWords = new HashSet<>();
         Set<String> oddVowelsWords = new HashSet<>();
         Map<Character, Integer> numberingPunctuation = new HashMap<>();
+
+        String dataDir = "data/";
+        try{
+            File dataDirectory = new File(dataDir);
+            if(!dataDirectory.exists()){
+                dataDirectory.mkdir();
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        String dateDir = dataDir + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-mm-yyy"));
 
         try (FileReader fr = new FileReader(inputFile);
              BufferedReader br = new BufferedReader(fr)) {
@@ -37,12 +48,12 @@ public class _Main {
                         }
                     } else {
                         countPunctuation(word, numberingPunctuation);
-                        if(!word.equals(firstErrorWord) && !word.equals(secondErrorWord)) {
+                        if (!word.equals(firstErrorWord) && !word.equals(secondErrorWord)) {
                             String cleanWord = deleteErrFromWord(word);
                             if (countVowels(cleanWord) % 2 == 0 && !evenVowelsWords.contains(cleanWord)) {
                                 evenVowelsWords.add(cleanWord);
                             }
-                            if(countVowels(cleanWord) % 2 == 1 && !oddVowelsWords.contains(cleanWord)) {
+                            if (countVowels(cleanWord) % 2 == 1 && !oddVowelsWords.contains(cleanWord)) {
                                 oddVowelsWords.add(cleanWord);
                             }
                         }
@@ -100,6 +111,5 @@ public class _Main {
             System.err.println(e.getMessage());
         }
     }
-
 }
 
