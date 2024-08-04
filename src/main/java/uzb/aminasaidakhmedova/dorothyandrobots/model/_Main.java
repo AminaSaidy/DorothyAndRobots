@@ -19,9 +19,9 @@ public class _Main {
         Map<Character, Integer> numberingPunctuation = new HashMap<>();
 
         String dataDir = "data/";
-        try{
+        try {
             File dataDirectory = new File(dataDir);
-            if(!dataDirectory.exists()){
+            if (!dataDirectory.exists()) {
                 dataDirectory.mkdir();
             }
         } catch (Exception e) {
@@ -29,12 +29,19 @@ public class _Main {
         }
 
         String dateDir = dataDir + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-mm-yyy")) + "/";
-        try{
+        try {
             File dateDirectory = new File(dateDir);
-            if(!dateDirectory.exists()) {
+            if (!dateDirectory.exists()) {
                 dateDirectory.mkdir();
+            } else {
+                for (File file : dateDirectory.listFiles()) {
+                    file.delete();
+                    if (file.exists()) {
+                        System.out.println("Could not delete " + file.getName() + " file");
+                    }
+                }
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
